@@ -15,8 +15,9 @@ onnxruntime>=1.17.0
 
 # Face Detection & Recognition
 insightface==0.7.3
-retinaface-pytorch==0.0.8
 facenet-pytorch==2.5.3
+# retinaface-pytorch removido devido a conflito com torch
+# InsightFace já inclui detecção facial
 
 # Face Aging (usaremos StyleGAN2 + age conditioning)
 # Nota: Implementaremos uma versão simplificada baseada em transfer learning
