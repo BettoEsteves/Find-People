@@ -1,17 +1,17 @@
 # Web Framework
-streamlit==1.32.0
-fastapi==0.110.0
-uvicorn==0.28.0
+streamlit>=1.32.0
+fastapi>=0.110.0
+uvicorn>=0.28.0
 
 # Computer Vision & Image Processing
-opencv-python==4.9.0.80
-Pillow==10.2.0
-scikit-image==0.22.0
+opencv-python>=4.9.0
+Pillow>=10.3.0
+scikit-image>=0.22.0
 
 # Deep Learning
-torch==2.2.1
-torchvision==0.17.1
-onnxruntime==1.17.3
+torch>=2.2.0
+torchvision>=0.17.0
+onnxruntime>=1.17.0
 
 # Face Detection & Recognition
 insightface==0.7.3
@@ -22,29 +22,29 @@ facenet-pytorch==2.5.3
 # Nota: Implementaremos uma versão simplificada baseada em transfer learning
 
 # Numerical & Scientific
-numpy==1.26.4
-scipy==1.12.0
-pandas==2.2.1
+numpy>=1.26.0,<2.0.0
+scipy>=1.12.0
+pandas>=2.2.0
 
 # Metrics & Similarity
-scikit-learn==1.4.1.post1
+scikit-learn>=1.4.0
 
 # Utilities
-python-dateutil==2.9.0
-python-multipart==0.0.9
-tqdm==4.66.2
+python-dateutil>=2.9.0
+python-multipart>=0.0.9
+tqdm>=4.66.0
 
 # Visualization
-matplotlib==3.8.3
-seaborn==0.13.2
+matplotlib>=3.8.0
+seaborn>=0.13.0
 
 # Configuration
-pyyaml==6.0.1
-python-dotenv==1.0.1
+pyyaml>=6.0.0
+python-dotenv>=1.0.0
 
 # Logging
-loguru==0.7.2
+loguru>=0.7.0
 
 # Testing (opcional)
-pytest==8.1.1
-pytest-cov==4.1.0
+pytest>=8.1.0
+pytest-cov>=4.1.0
