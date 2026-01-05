@@ -1,0 +1,70 @@
+# FaceAge Identity Analyzer Configuration
+
+# Application Settings
+app:
+  name: "FaceAge Identity Analyzer"
+  version: "1.0.0"
+  debug: false
+
+# Paths
+paths:
+  uploads: "data/uploads"
+  results: "data/results"
+  models: "models"
+  logs: "logs"
+
+# Model Settings
+models:
+  # Face Detection
+  face_detection:
+    backend: "retinaface"  # Options: retinaface, mtcnn
+    confidence_threshold: 0.9
+
+  # Face Alignment
+  face_alignment:
+    target_size: [256, 256]
+    padding: 0.3
+
+  # Face Aging
+  face_aging:
+    method: "style_transfer"  # Options: style_transfer, interpolation
+    max_age_delta: 80  # Maximum age difference to simulate
+
+  # Face Recognition
+  face_recognition:
+    backend: "insightface"  # Options: insightface, facenet
+    model_name: "buffalo_l"
+    similarity_threshold: 0.4  # Cosine similarity threshold
+
+# Processing Settings
+processing:
+  max_image_size: 2048
+  jpeg_quality: 95
+  enable_gpu: true
+  batch_size: 1
+
+# UI Settings
+ui:
+  theme: "light"
+  max_file_size_mb: 10
+  supported_formats: ["jpg", "jpeg", "png"]
+
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  rotation: "10 MB"
+  retention: "30 days"
+
+# Security & Ethics
+ethics:
+  display_disclaimer: true
+  require_consent: true
+  watermark_results: true
+  disclaimer_text: |
+    AVISO IMPORTANTE:
+    - Este sistema gera simulações probabilísticas, não determinísticas
+    - Os resultados NÃO devem ser usados para fins legais ou forenses
+    - A precisão depende da qualidade das imagens e das condições de captura
+    - Fatores como genética, estilo de vida e saúde não são totalmente modeláveis
+    - Este é um sistema demonstrativo e educacional
