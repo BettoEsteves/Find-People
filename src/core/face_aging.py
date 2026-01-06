@@ -137,14 +137,14 @@ class FaceAging:
 
     def _adjust_skin_tone(self, image: Image.Image, intensity: float, target_age: int) -> Image.Image:
         """Adjust skin tone to simulate aging."""
-        # Older skin tends to be slightly yellower and darker
+        # Older skin tends to be yellower and darker - mais agressivo
         enhancer = ImageEnhance.Color(image)
-        # Reduce saturation slightly
-        image = enhancer.enhance(1.0 - intensity * 0.15)
+        # Reduce saturation
+        image = enhancer.enhance(1.0 - intensity * 0.35)
 
-        # Adjust brightness (slight darkening)
+        # Adjust brightness (darkening)
         enhancer = ImageEnhance.Brightness(image)
-        image = enhancer.enhance(1.0 - intensity * 0.08)
+        image = enhancer.enhance(1.0 - intensity * 0.20)
 
         return image
 
@@ -156,33 +156,33 @@ class FaceAging:
         # Apply edge enhancement to create wrinkle effect
         edges = gray.filter(ImageFilter.FIND_EDGES)
 
-        # Enhance edges
+        # Enhance edges - mais agressivo
         enhancer = ImageEnhance.Contrast(edges)
-        edges = enhancer.enhance(2.0)
+        edges = enhancer.enhance(3.5)
 
         # Blend edges back with original
         edges_rgb = edges.convert('RGB')
 
-        # Blend with reduced opacity based on intensity
-        alpha = intensity * 0.15  # Subtle wrinkle effect
+        # Blend with opacity based on intensity - mais agressivo
+        alpha = intensity * 0.40
 
         # Convert to numpy for blending
         img_arr = np.array(image).astype(np.float32)
         edges_arr = np.array(edges_rgb).astype(np.float32)
 
-        # Darken along edges (wrinkles are darker)
-        wrinkled = img_arr - (edges_arr * alpha * 0.3)
+        # Darken along edges (wrinkles are darker) - mais agressivo
+        wrinkled = img_arr - (edges_arr * alpha * 0.6)
         wrinkled = np.clip(wrinkled, 0, 255).astype(np.uint8)
 
         return Image.fromarray(wrinkled)
 
     def _reduce_smoothness(self, image: Image.Image, intensity: float) -> Image.Image:
         """Reduce skin smoothness to simulate texture changes."""
-        # Add subtle noise to simulate skin texture changes
+        # Add noise to simulate skin texture changes - mais agressivo
         img_arr = np.array(image).astype(np.float32)
 
-        # Generate noise
-        noise = np.random.normal(0, intensity * 2.0, img_arr.shape)
+        # Generate noise - mais agressivo
+        noise = np.random.normal(0, intensity * 5.0, img_arr.shape)
 
         # Add noise
         textured = img_arr + noise
@@ -190,15 +190,15 @@ class FaceAging:
 
         # Apply slight blur to make it look natural
         result = Image.fromarray(textured)
-        result = result.filter(ImageFilter.GaussianBlur(radius=0.3))
+        result = result.filter(ImageFilter.GaussianBlur(radius=0.5))
 
         return result
 
     def _adjust_contrast(self, image: Image.Image, intensity: float) -> Image.Image:
         """Adjust contrast to simulate loss of skin elasticity."""
         enhancer = ImageEnhance.Contrast(image)
-        # Increase contrast slightly (skin loses elasticity)
-        factor = 1.0 + intensity * 0.15
+        # Increase contrast - mais agressivo
+        factor = 1.0 + intensity * 0.35
         return enhancer.enhance(factor)
 
     def _simulate_sagging(self, image: Image.Image, intensity: float) -> Image.Image:
@@ -229,23 +229,23 @@ class FaceAging:
         return Image.fromarray(sagged)
 
     def _add_age_spots(self, image: Image.Image, intensity: float) -> Image.Image:
-        """Add subtle age spots for older ages."""
+        """Add age spots for older ages."""
         img_arr = np.array(image).astype(np.float32)
         h, w = img_arr.shape[:2]
 
-        # Generate random age spots
-        num_spots = int(intensity * 15)
+        # Generate age spots - mais agressivo
+        num_spots = int(intensity * 40)
 
         for _ in range(num_spots):
             # Random position
             x = np.random.randint(w // 4, 3 * w // 4)
             y = np.random.randint(h // 4, 3 * h // 4)
 
-            # Random size
-            radius = np.random.randint(1, 3)
+            # Random size - maior
+            radius = np.random.randint(2, 5)
 
-            # Random darkness
-            darkness = np.random.uniform(0.8, 0.95)
+            # Random darkness - mais escuro
+            darkness = np.random.uniform(0.65, 0.85)
 
             # Draw circular spot
             cv2.circle(img_arr, (x, y), radius,
